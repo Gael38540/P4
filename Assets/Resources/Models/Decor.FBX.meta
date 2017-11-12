@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: c30c81e9a3042a84695055fcd02e68b6
-timeCreated: 1510506460
+guid: 5bada91fa5f211547a8e28734d2b0b29
+timeCreated: 1510508414
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -9,8 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Grille
-    4300002: Decor
+    4300000: Decor
     9500000: //RootNode
   externalObjects:
   - first:
@@ -18,11 +17,6 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: No Name
     second: {fileID: 2100000, guid: 0169288386127c34da6dc164c60ed1b4, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Texture1
-    second: {fileID: 2100000, guid: a5f799047bd46db4fa636cdc07338319, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
