@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Resources/Scenes/Selection.unity
+- path: Assets/Resources/Scenes/RATON_Main.unity
   isLoaded: 1
   isActive: 1
