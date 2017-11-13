@@ -4,17 +4,21 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+
 public class Start_Game : MonoBehaviour {
 
     public byte Version = 1;
     public bool AutoConnect = true;
     public string m_sRoomName = "P4";
     
-    private int m_nJoueur;
+	public int m_nJoueur;
+	public int[] m_nIdJoueur;
 
 
     private bool ConnectInUpdate = true;
     private PhotonView m_PhotonView;
+
+	private P4_Game m_scpP4_Game;
 
     // Use this for initialization
     void Start () {
@@ -22,6 +26,7 @@ public class Start_Game : MonoBehaviour {
         DontDestroyOnLoad(this);
         
         m_nJoueur = 0;  
+		m_nIdJoueur = new int[4];
             
         PhotonNetwork.autoJoinLobby = false;
         m_PhotonView = GetComponent <PhotonView>();
@@ -51,27 +56,36 @@ public class Start_Game : MonoBehaviour {
 
     void OnJoinedRoom(){
 
-        if(PhotonNetwork.isMasterClient)
-            PhotonNetwork.Instantiate("Prefabs/Game",Vector3.zero,Quaternion.identity,0,null);
+		if (PhotonNetwork.isMasterClient) {
+			
+			PhotonNetwork.Instantiate ("Prefabs/Game_P4", Vector3.zero, Quaternion.identity, 0, null);
 
-        m_PhotonView.RPC ("Connecter", PhotonTargets.MasterClient);
+		}
+
+		object sView;
+		sView = m_PhotonView.viewID;
+			
+		m_PhotonView.RPC ("Connecter", PhotonTargets.MasterClient,sView);
 
     }
 
 
     [PunRPC]
-    void Connecter()
+	void Connecter(object sView)
     {
 
-        if (PhotonNetwork.isMasterClient)
-        {
+        //if (PhotonNetwork.isMasterClient)
+        //{
 
-            m_nJoueur++;
+		m_nIdJoueur [m_nJoueur] = int.Parse(sView.ToString());
 
-            if(m_nJoueur == 2)
-                 m_PhotonView.RPC ("Lancer_Partie_Ok", PhotonTargets.All);
+        m_nJoueur++;
 
-        }
+        if(m_nJoueur == 2)
+             m_PhotonView.RPC ("Lancer_Partie_Ok", PhotonTargets.All);
+
+
+        //}
 
     }
 
@@ -79,7 +93,19 @@ public class Start_Game : MonoBehaviour {
     void Lancer_Partie_Ok()
     {
         
+
         SceneManager.LoadScene(1);
+
+		m_scpP4_Game = GameObject.Find("P4_Game").GetComponent <P4_Game>();
+
+		for (int i = 0; i < m_nJoueur; i++) {
+
+			m_scpP4_Game.m_nIdJoueur[i] = m_nIdJoueur [i];
+
+		}
+
+		m_scpP4_Game.m_nNbJoueur_Total = m_nJoueur;
+
 
     }
 }

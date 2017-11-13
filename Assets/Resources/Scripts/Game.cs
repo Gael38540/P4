@@ -44,15 +44,15 @@ public class Game : MonoBehaviour {
 
     }
 
-    void OnEnable()
+    /*void OnEnable()
     {
-        SceneManager.sceneLoaded += OnLevelFinishedLoading;
+        SceneManager.sceneLoaded += OnLevelFinishedLoadingold;
     }
     
     void OnDisable()
     {
-        SceneManager.sceneLoaded -= OnLevelFinishedLoading;
-    }
+		SceneManager.sceneLoadedold -= OnLevelFinishedLoadingold;
+    }*/
 
 	// Use this for initialization
 	void Start () {
@@ -68,7 +68,7 @@ public class Game : MonoBehaviour {
 
 	}
 
-    void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
+	void OnLevelFinishedLoadingold(Scene scene, LoadSceneMode mode)
     {
 		float rHaut_Screen = Screen.height - 100;
 
@@ -86,7 +86,6 @@ public class Game : MonoBehaviour {
 
 			trEntete.sizeDelta = new Vector2 (nLargCase, 20);
 			trEntete.position = new Vector3( nLargCase / 2 + i * nLargCase + i * 5,rHaut_Screen+40,0);
-
 
 		}
 
