@@ -46,7 +46,7 @@ public class P4_Game : MonoBehaviour {
 
 	}
 
-	void Init_Scene()
+	public void Init_Scene()
 	{
 
 		m_PhotonView = GetComponent<PhotonView>();

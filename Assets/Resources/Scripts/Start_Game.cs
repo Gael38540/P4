@@ -106,6 +106,7 @@ public class Start_Game : MonoBehaviour {
 
 		m_scpP4_Game.m_nNbJoueur_Total = m_nJoueur;
 
+		m_scpP4_Game.Init_Scene ();
 
     }
 }
