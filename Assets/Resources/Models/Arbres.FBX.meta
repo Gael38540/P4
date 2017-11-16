@@ -1,24 +1,24 @@
 fileFormatVersion: 2
-guid: 89aacd077ad76334dbbe9554ae32e9d4
-timeCreated: 1510698536
+guid: 8b1c29a7c9f11fc4da4d30f922017a46
+timeCreated: 1510796965
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: Racine2
+    100000: Arbres
     100002: //RootNode
-    400000: Racine2
+    400000: Arbres
     400002: //RootNode
-    2300000: Racine2
-    3300000: Racine2
-    4300000: Racine2
+    2300000: Arbres
+    3300000: Arbres
+    4300000: Arbres
     9500000: //RootNode
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'Material #25'
-    second: {fileID: 2100000, guid: 64040453f8f064c4d9a9218f06147456, type: 2}
+      name: Arbres
+    second: {fileID: 2100000, guid: cb1c6cd3e5938514eae12186a78809eb, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
