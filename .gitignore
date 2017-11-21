@@ -26,3 +26,6 @@ sysinfo.txt
 # Builds
 /Builds
 *.unitypackage
+Library/metadata/00/00000000000000005100000000000000
+Library/assetDatabase3
+Library/metadata/00/00000000000000008000000000000000
