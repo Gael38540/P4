@@ -12,6 +12,7 @@ public class Start_Game : MonoBehaviour {
     public string m_sRoomName = "P4";
     
 	public int m_nJoueur;
+	public int m_nNum_Joueur;
 	public int[] m_nIdJoueur;
 
 
@@ -20,6 +21,8 @@ public class Start_Game : MonoBehaviour {
 
 	private P4_Game m_scpP4_Game;
 
+	public GameObject m_goBtn_Partie;
+
     // Use this for initialization
     void Start () {
     
@@ -27,6 +30,7 @@ public class Start_Game : MonoBehaviour {
         
         m_nJoueur = 0;  
 		m_nIdJoueur = new int[4];
+		m_nNum_Joueur = 0;
             
         PhotonNetwork.autoJoinLobby = false;
         m_PhotonView = GetComponent <PhotonView>();
@@ -57,43 +61,48 @@ public class Start_Game : MonoBehaviour {
     void OnJoinedRoom(){
 
 		if (PhotonNetwork.isMasterClient) {
-			
+
+			m_nNum_Joueur = 1;
 			PhotonNetwork.Instantiate ("Prefabs/Game_P4", Vector3.zero, Quaternion.identity, 0, null);
 
 		}
-
-		object sView;
-		sView = m_PhotonView.viewID;
 			
-		m_PhotonView.RPC ("Connecter", PhotonTargets.MasterClient,sView);
+		m_PhotonView.RPC ("Connecter", PhotonTargets.MasterClient);
 
     }
 
 
     [PunRPC]
-	void Connecter(object sView)
+	void Connecter()
     {
-
-        //if (PhotonNetwork.isMasterClient)
-        //{
-
-		m_nIdJoueur [m_nJoueur] = int.Parse(sView.ToString());
 
         m_nJoueur++;
 
-        if(m_nJoueur == 2)
-             m_PhotonView.RPC ("Lancer_Partie_Ok", PhotonTargets.All);
+		object objNumJr;
 
+		objNumJr = m_nJoueur;
 
-        //}
+		m_PhotonView.RPC ("Envoi_Num", PhotonTargets.All,objNumJr);
+
+		if(m_nJoueur == 2){
+			
+			m_goBtn_Partie.SetActive(true);
+
+        }
 
     }
 
+	[PunRPC]
+	void Envoi_Num(object nNumJr)
+	{
+		if (m_nNum_Joueur == 0)
+			m_nNum_Joueur = int.Parse(nNumJr.ToString());
+	}
+
     [PunRPC]
-    void Lancer_Partie_Ok()
+	void Lancer_Partie_Ok(object nNbJr)
     {
         
-
         SceneManager.LoadScene(1);
 
 		m_scpP4_Game = GameObject.Find("P4_Game").GetComponent <P4_Game>();
@@ -104,9 +113,19 @@ public class Start_Game : MonoBehaviour {
 
 		}
 
-		m_scpP4_Game.m_nNbJoueur_Total = m_nJoueur;
+		m_scpP4_Game.m_nNbJoueur_Total = int.Parse(nNbJr.ToString());
 
-		m_scpP4_Game.Init_Scene ();
+		m_scpP4_Game.Init_Scene (m_nNum_Joueur);
 
     }
+
+	public void Lance_Partie(){
+
+		object nNbJr;
+		nNbJr = m_nJoueur;
+
+		m_PhotonView.RPC ("Lancer_Partie_Ok", PhotonTargets.All,nNbJr);
+
+	}
+
 }
